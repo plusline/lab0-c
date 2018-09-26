@@ -1,6 +1,8 @@
 # lab0-c
 Assessing Your C Programming Skills
-test
+
+practice commit
+
 ## Running the autograders
 
 Before running the autograders, compile your code to create the testing program qtest
