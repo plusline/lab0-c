@@ -35,6 +35,15 @@ void q_free(queue_t *q)
 {
     /* How about freeing the list elements and the strings? */
     /* Free queue structure */
+    list_ele_t *temp, *current;
+    current = q->head;
+    while (current != NULL) {
+        temp = current;
+        current = current->next;
+        printf("value: %s\n", current->value);
+        free(current->value);
+        free(temp);
+    }
     free(q);
 }
 
