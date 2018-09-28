@@ -26,6 +26,8 @@ queue_t *q_new()
 {
     queue_t *q = malloc(sizeof(queue_t));
     /* What if malloc returned NULL? */
+    if (q == NULL)
+        return NULL;
     q->head = NULL;
     q->tail = NULL;
     q->size = 0;
@@ -124,7 +126,10 @@ bool q_remove_head(queue_t *q, char *sp, size_t bufsize)
         return false;
     list_ele_t *dummy;
     dummy = q->head;
-    strncpy(sp, q->head->value, bufsize - 1);
+    if (sp == NULL)
+        return false;
+    strcpy(sp, q->head->value);
+    // strncpy(sp, q->head->value, bufsize-1 );
     q->head = q->head->next;
     free(dummy);
     q->size -= 1;
@@ -139,7 +144,9 @@ int q_size(queue_t *q)
 {
     /* You need to write the code for this function */
     /* Remember: It should operate in O(1) time */
-    return 0;
+    if (q == NULL)
+        return 0;
+    return q->size;
 }
 
 /*
@@ -152,4 +159,21 @@ int q_size(queue_t *q)
 void q_reverse(queue_t *q)
 {
     /* You need to write the code for this function */
+    if (q == NULL || q->size <= 1)
+        return;
+    list_ele_t *h;
+    h = q->head;
+    list_ele_t *t;
+    t = q->tail;
+    list_ele_t *ptr = q->head;
+    list_ele_t *ptr2 = q->head->next;
+    ptr->next = NULL;
+    while (ptr2 != NULL) {
+        list_ele_t *temp = ptr2->next;
+        ptr2->next = ptr;
+        ptr = ptr2;
+        ptr2 = temp;
+    }
+    q->head = t;
+    q->tail = h;
 }
