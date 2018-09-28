@@ -128,8 +128,8 @@ bool q_remove_head(queue_t *q, char *sp, size_t bufsize)
     dummy = q->head;
     if (sp == NULL)
         return false;
-    strcpy(sp, q->head->value);
-    // strncpy(sp, q->head->value, bufsize-1 );
+    strncpy(sp, q->head->value, bufsize - 1);
+    sp[bufsize - 1] = '\0';
     q->head = q->head->next;
     free(dummy);
     q->size -= 1;
